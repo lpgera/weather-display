@@ -18,7 +18,7 @@ function update({ icon, temperature, probabilityOfPercipitation }) {
   display.setCursor(70, 11)
   display.writeString(font, 2, `${temperature}°C`, 0, false)
   display.setCursor(70, 35)
-  display.writeString(font, 1, 'Rain:', 1, false)
+  display.writeString(font, 1, 'Rain 4h:', 1, false)
   display.setCursor(70, 45)
   display.writeString(font, 2, `${probabilityOfPercipitation}%`, 0, false)
 }

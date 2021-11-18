@@ -1,0 +1,21 @@
+{
+  "name": "weather-display",
+  "version": "1.0.0",
+  "description": "A little Node app which displays current weather data on a tiny SSD1306 OLED display",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "lpgera",
+  "license": "MIT",
+  "dependencies": {
+    "cron": "^1.8.2",
+    "dotenv": "^10.0.0",
+    "got": "^11.8.3",
+    "i2c-bus": "^5.2.2",
+    "oled-font-5x7": "^1.0.3",
+    "oled-i2c-bus": "^1.0.12",
+    "pngjs": "^6.0.0"
+  }
+}

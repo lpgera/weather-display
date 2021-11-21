@@ -17,6 +17,7 @@ Displays the following information:
 Set the following variables in a `.env` file:
 
 ```dotenv
+DISPLAY_I2C_BUS= # I2C bus number. Default value: 1.
 DISPLAY_I2C_ADDRESS= # I2C address of the display. Default value: 0x3C
 CRON_CONFIG= # Cron time configuration for data updates. Default value: "0 */10 * * * *" (every 10 minutes).
 WEATHER_LATTITUDE= # Geographic coordinate to be used for grabbing weather information. Required.

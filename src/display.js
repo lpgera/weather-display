@@ -2,7 +2,7 @@ const i2c = require('i2c-bus')
 const Oled = require('oled-i2c-bus')
 const font = require('oled-font-5x7')
 
-const i2cBus = i2c.openSync(1)
+const i2cBus = i2c.openSync(parseInt(process.env.DISPLAY_I2C_BUS || 1))
 
 const display = new Oled(i2cBus, {
   width: 128,

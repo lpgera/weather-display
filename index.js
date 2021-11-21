@@ -1,8 +1,7 @@
 require('dotenv').config()
-const icons = require('./icons')
-const display = require('./display')
-const weather = require('./weather')
 const CronJob = require('cron').CronJob
+const display = require('./src/display')
+const weather = require('./src/weather')
 
 function tick() {
   weather.getData().then(

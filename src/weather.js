@@ -39,14 +39,14 @@ async function getData() {
 
   const temperature = Math.round(response.current.temp)
   const [h1, h2, h3, h4] = response.hourly
-  const probabilityOfPercipitation = Math.round(Math.max(h1.pop, h2.pop, h3.pop, h4.pop) * 100)
+  const probabilityOfPrecipitation = Math.round(Math.max(h1.pop, h2.pop, h3.pop, h4.pop) * 100)
   const rawIcon = response.current.weather[0].icon
   const icon = iconMap[rawIcon]
 
   return {
     icon,
     temperature,
-    probabilityOfPercipitation,
+    probabilityOfPrecipitation,
   }
 }
 

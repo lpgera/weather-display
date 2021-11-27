@@ -11,16 +11,21 @@ const display = new Oled(i2cBus, {
 })
 
 function update({ icon, temperature, probabilityOfPrecipitation }) {
+  const paddedTemperature = String(temperature).padStart(3, ' ')
+  const paddedPop = String(probabilityOfPrecipitation).padStart(3, ' ')
+
   display.clearDisplay()
   display.drawRGBAImage(icon, 0, 0)
-  display.setCursor(70, 0)
-  display.writeString(font, 1, 'Temp.:', 1, false)
-  display.setCursor(70, 11)
-  display.writeString(font, 2, `${temperature}°C`, 0, false)
-  display.setCursor(70, 35)
+  display.setCursor(68, 0)
+  display.writeString(font, 3, paddedTemperature, 1, false)
+  display.setCursor(117, 0)
+  display.writeString(font, 1, `°C`, 1, false)
+  display.setCursor(80, 30)
   display.writeString(font, 1, 'Rain 4h:', 1, false)
-  display.setCursor(70, 45)
-  display.writeString(font, 2, `${probabilityOfPrecipitation}%`, 0, false)
+  display.setCursor(68, 40)
+  display.writeString(font, 3, paddedPop, 1, false)
+  display.setCursor(117, 40)
+  display.writeString(font, 2, '%', 1, false)
 }
 
 module.exports = {

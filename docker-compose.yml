@@ -1,0 +1,9 @@
+version: "3"
+services:
+  weather-display:
+    container_name: weather-display
+    image: ghcr.io/lpgera/weather-display:main
+    env_file: .env
+    devices:
+      - /dev/i2c-${DISPLAY_I2C_BUS}:/dev/i2c-${DISPLAY_I2C_BUS}
+    restart: unless-stopped

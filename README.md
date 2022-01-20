@@ -26,9 +26,29 @@ WEATHER_APPID= # OpenWeather API key. Required.
 WEATHER_UNITS= # Unit configuration for OpenWeather API. Default value: metric.
 ```
 
-### PM2
+### Usage with Docker
 
-PM2 process manager can be used to keep the app always running.
+Start with Docker CLI:
+
+```bash
+docker run \
+  --detach \
+  --device /dev/i2c-1 \
+  --env-file .env \
+  --restart unless-stopped \
+  --name weather-display \
+  ghcr.io/lpgera/weather-display:main
+```
+
+Or you can use the `docker-compose.yml` file from the repository and run:
+
+```bash
+docker-compose up -d
+```
+
+### Usage with PM2
+
+As an alternative to Docker, [PM2](https://pm2.keymetrics.io/) process manager can also be used to keep the app always running.
 
 Install PM2 globally:
 ```

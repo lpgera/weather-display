@@ -1,4 +1,6 @@
-FROM node:14
+FROM node:14-slim
+
+RUN apt-get update && apt-get install python build-essential -y
 
 WORKDIR /usr/src/app
 

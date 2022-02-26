@@ -37,7 +37,7 @@ docker run \
   --env-file .env \
   --restart unless-stopped \
   --name weather-display \
-  ghcr.io/lpgera/weather-display:main
+  ghcr.io/lpgera/weather-display
 ```
 
 Or you can use the `docker-compose.yml` file from the repository and run:

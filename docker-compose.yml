@@ -2,7 +2,7 @@ version: "3"
 services:
   weather-display:
     container_name: weather-display
-    image: ghcr.io/lpgera/weather-display:main
+    image: ghcr.io/lpgera/weather-display
     env_file: .env
     devices:
       - /dev/i2c-${DISPLAY_I2C_BUS}:/dev/i2c-${DISPLAY_I2C_BUS}

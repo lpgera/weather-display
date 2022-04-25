@@ -1,5 +1,5 @@
 # stage 1 - build
-FROM node:16 AS BUILD_IMAGE
+FROM node:18 AS BUILD_IMAGE
 
 WORKDIR /usr/src/app
 
@@ -8,7 +8,7 @@ COPY package*.json ./
 RUN npm ci
 
 # stage 2 - lighter image without build dependencies
-FROM node:16-alpine
+FROM node:18-alpine
 
 WORKDIR /usr/src/app
 

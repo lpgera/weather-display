@@ -1,5 +1,5 @@
-const fs = require('fs')
-const PNG = require('pngjs').PNG
+import fs from 'fs'
+import { PNG } from 'pngjs'
 
 function readIconSync(path) {
   const file = fs.readFileSync(path)
@@ -19,4 +19,4 @@ const icons = {
   thunder: readIconSync('icons/thunder.png'),
 }
 
-module.exports = icons
+export default icons

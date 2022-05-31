@@ -1,5 +1,5 @@
-const got = require('got')
-const icons = require('./icons')
+import got from 'got'
+import icons from './icons.js'
 
 const searchParams = {
   lat: process.env.WEATHER_LATTITUDE,
@@ -29,7 +29,7 @@ const iconMap = {
   '50n': icons.mist,
 }
 
-async function getData() {
+export async function getData() {
   const response = await got('https://api.openweathermap.org/data/2.5/onecall', { searchParams }).json()
 
   if (!response) {
@@ -48,8 +48,4 @@ async function getData() {
     temperature,
     probabilityOfPrecipitation,
   }
-}
-
-module.exports = {
-  getData,
 }

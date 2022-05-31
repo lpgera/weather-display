@@ -1,7 +1,7 @@
-require('dotenv').config()
-const CronJob = require('cron').CronJob
-const display = require('./src/display')
-const weather = require('./src/weather')
+import 'dotenv/config'
+import { CronJob } from 'cron'
+import * as display from './src/display.js'
+import * as weather from './src/weather.js'
 
 function tick() {
   weather.getData().then(

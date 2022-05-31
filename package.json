@@ -11,9 +11,9 @@
   "author": "lpgera",
   "license": "MIT",
   "dependencies": {
-    "cron": "^1.8.2",
-    "dotenv": "^16.0.0",
-    "got": "^11.8.3",
+    "cron": "^2.0.0",
+    "dotenv": "^16.0.1",
+    "got": "^11.8.5",
     "i2c-bus": "^5.2.2",
     "oled-font-5x7": "^1.0.3",
     "oled-i2c-bus": "^1.0.12",

@@ -1,7 +1,7 @@
 import icons from './icons.js'
 
 const searchParams = {
-  lat: process.env.WEATHER_LATTITUDE,
+  lat: process.env.WEATHER_LATITUDE,
   lon: process.env.WEATHER_LONGITUDE,
   appid: process.env.WEATHER_APPID,
   units: process.env.WEATHER_UNITS || 'metric',

@@ -1,4 +1,3 @@
-import got from 'got'
 import icons from './icons.js'
 
 const searchParams = {
@@ -30,17 +29,21 @@ const iconMap = {
 }
 
 export async function getData() {
-  const response = await got('https://api.openweathermap.org/data/2.5/onecall', { searchParams }).json()
+  const response = await fetch(
+    `https://api.openweathermap.org/data/2.5/onecall?${new URLSearchParams(searchParams)}`
+  )
 
-  if (!response) {
-    console.error('Could not get weather information from OpenWeatherMap API')
+  if (!response.ok) {
+    console.error('Could not get weather information from OpenWeatherMap API:', await response.text())
     return null
   }
 
-  const temperature = Math.round(response.current.temp)
-  const [h1, h2, h3, h4] = response.hourly
+  const responseData = await response.json()
+
+  const temperature = Math.round(responseData.current.temp)
+  const [h1, h2, h3, h4] = responseData.hourly
   const probabilityOfPrecipitation = Math.round(Math.max(h1.pop, h2.pop, h3.pop, h4.pop) * 100)
-  const rawIcon = response.current.weather[0].icon
+  const rawIcon = responseData.current.weather[0].icon
   const icon = iconMap[rawIcon]
 
   return {

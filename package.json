@@ -6,14 +6,18 @@
   "type": "module",
   "engines": {
     "node": "^18.0.0",
-    "npm": "^8.5.0"
+    "npm": "^9.0.0"
+  },
+  "volta": {
+    "node": "18.14.0",
+    "npm": "9.3.1"
   },
   "scripts": {},
   "author": "lpgera",
   "license": "MIT",
   "dependencies": {
-    "cron": "^2.0.0",
-    "dotenv": "^16.0.1",
+    "cron": "^2.2.0",
+    "dotenv": "^16.0.3",
     "i2c-bus": "^5.2.2",
     "oled-font-5x7": "^1.0.3",
     "oled-i2c-bus": "^1.0.12",

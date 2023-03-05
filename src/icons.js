@@ -1,22 +1,20 @@
-import fs from 'fs'
-import { PNG } from 'pngjs'
-
-function readIconSync(path) {
-  const file = fs.readFileSync(path)
-  return PNG.sync.read(file)
+export const iconMap = {
+  '01d': 'sun',
+  '01n': 'sun',
+  '02d': 'cloudy-day',
+  '02n': 'cloudy-night',
+  '03d': 'cloud',
+  '03n': 'cloud',
+  '04d': 'clouds',
+  '04n': 'clouds',
+  '09d': 'rain',
+  '09n': 'rain',
+  '10d': 'rain',
+  '10n': 'rain',
+  '11d': 'thunder',
+  '11n': 'thunder',
+  '13d': 'snow',
+  '13n': 'snow',
+  '50d': 'mist',
+  '50n': 'mist',
 }
-
-const icons = {
-  cloud: readIconSync('icons/cloud.png'),
-  clouds: readIconSync('icons/clouds.png'),
-  cloudyDay: readIconSync('icons/cloudy-day.png'),
-  cloudyNight: readIconSync('icons/cloudy-night.png'),
-  mist: readIconSync('icons/mist.png'),
-  moon: readIconSync('icons/moon.png'),
-  rain: readIconSync('icons/rain.png'),
-  snow: readIconSync('icons/snow.png'),
-  sun: readIconSync('icons/sun.png'),
-  thunder: readIconSync('icons/thunder.png'),
-}
-
-export default icons

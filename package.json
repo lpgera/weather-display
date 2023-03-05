@@ -5,22 +5,26 @@
   "main": "index.js",
   "type": "module",
   "engines": {
-    "node": "^18.0.0",
-    "npm": "^9.0.0"
+    "node": "^18.14.2",
+    "npm": "^9.5.0"
   },
   "volta": {
-    "node": "18.14.0",
-    "npm": "9.3.1"
+    "node": "18.14.2"
   },
-  "scripts": {},
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
   "author": "lpgera",
   "license": "MIT",
   "dependencies": {
-    "cron": "^2.2.0",
     "dotenv": "^16.0.3",
-    "i2c-bus": "^5.2.2",
-    "oled-font-5x7": "^1.0.3",
-    "oled-i2c-bus": "^1.0.12",
-    "pngjs": "^6.0.0"
+    "express": "^4.18.2",
+    "jimp": "^0.22.7"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "prettier": "^2.8.4",
+    "pretty-quick": "^3.1.3"
   }
 }

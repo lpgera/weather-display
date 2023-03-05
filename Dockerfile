@@ -1,19 +1,9 @@
-# stage 1 - build
-FROM node:18 AS BUILD_IMAGE
+FROM node:18-alpine AS BUILD_IMAGE
 
 WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm ci
-
-# stage 2 - lighter image without build dependencies
-FROM node:18-alpine
-
-WORKDIR /usr/src/app
-
-COPY --from=BUILD_IMAGE /usr/src/app/node_modules ./node_modules
-
-COPY . .
+RUN npm ci --omit=dev && npm cache clear --force
 
 CMD ["node", "index.js"]

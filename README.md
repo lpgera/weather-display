@@ -1,14 +1,8 @@
 # Weather display
 
-A little Node app which displays current weather data on a tiny SSD1306/SSD1315 OLED display.
-Built and tested with a Raspberry Pi.
+A little Node web server that serves a PNG image of weather data to be displayed on an M5Paper device.
 
-![Photo of the display in action](./ssd1315.jpg)
-
-Displays the following information:
-* Current weather condition as an icon on the left.
-* Current temperature on the top right.
-* Probability of precipitation in the upcoming 4 hours on the bottom right.
+![Example image](./example.png)
 
 ## Setup
 
@@ -17,9 +11,6 @@ Displays the following information:
 Set the following variables in a `.env` file:
 
 ```dotenv
-DISPLAY_I2C_BUS= # I2C bus number. Default value: 1.
-DISPLAY_I2C_ADDRESS= # I2C address of the display. Default value: 0x3C
-CRON_CONFIG= # Cron time configuration for data updates. Default value: "0 */10 * * * *" (every 10 minutes).
 WEATHER_LATITUDE= # Geographic coordinate to be used for grabbing weather information. Required.
 WEATHER_LONGITUDE= # Geographic coordinate to be used for grabbing weather information. Required.
 WEATHER_APPID= # OpenWeather API key. Required.
@@ -33,11 +24,11 @@ Start with Docker CLI:
 ```bash
 docker run \
   --detach \
-  --device /dev/i2c-1 \
   --env-file .env \
   --restart unless-stopped \
   --name weather-display \
-  ghcr.io/lpgera/weather-display
+  --publish 3000:3000 \
+  ghcr.io/lpgera/weather-display:m5paper-backend
 ```
 
 Or you can use the `docker-compose.yml` file from the repository and run:
@@ -51,12 +42,14 @@ docker-compose up -d
 As an alternative to Docker, [PM2](https://pm2.keymetrics.io/) process manager can also be used to keep the app always running.
 
 Install PM2 globally:
+
 ```
 npm i -g pm2
 pm2 startup
 ```
 
 Set up `weather-display` process:
+
 ```
 pm2 start ecosystem.config.js
 pm2 save

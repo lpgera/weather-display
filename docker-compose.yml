@@ -1,9 +1,9 @@
-version: "3"
+version: '3'
 services:
   weather-display:
     container_name: weather-display
-    image: ghcr.io/lpgera/weather-display
+    image: ghcr.io/lpgera/weather-display:m5paper-backend
     env_file: .env
-    devices:
-      - /dev/i2c-${DISPLAY_I2C_BUS}:/dev/i2c-${DISPLAY_I2C_BUS}
+    ports:
+      - 3000:3000
     restart: unless-stopped

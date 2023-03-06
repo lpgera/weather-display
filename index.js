@@ -7,14 +7,12 @@ import Jimp from 'jimp'
 const app = express()
 const port = process.env.PORT ?? 3000
 
+const font128 = await Jimp.loadFont(Jimp.FONT_SANS_128_BLACK)
+const font64 = await Jimp.loadFont(Jimp.FONT_SANS_64_BLACK)
+const font32 = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK)
+
 app.get('/', async (req, res, next) => {
   try {
-    const font128 = await Jimp.loadFont(Jimp.FONT_SANS_128_BLACK)
-    const font64 = await Jimp.loadFont(Jimp.FONT_SANS_64_BLACK)
-    const font32 = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK)
-    const font16 = await Jimp.loadFont(Jimp.FONT_SANS_16_BLACK)
-    const font8 = await Jimp.loadFont(Jimp.FONT_SANS_8_BLACK)
-
     const image = new Jimp(540, 960, 0xffffffff)
 
     const weatherData = await getData()
@@ -26,7 +24,7 @@ app.get('/', async (req, res, next) => {
 
       const currentWeatherIconSize = 300
       const currentWeatherIcon = await Jimp.read(
-        `./icons/${iconMap[weatherData.current.weather[0].icon]}.png`
+        iconMap[weatherData.current.weather[0].icon]
       )
       image.composite(
         currentWeatherIcon.resize(
@@ -94,9 +92,7 @@ app.get('/', async (req, res, next) => {
         )
 
         const hourlyWeatherIconTop = hourlyTop + 32 + gutter
-        const weatherIcon = await Jimp.read(
-          `./icons/${iconMap[hourlyData.weather[0].icon]}.png`
-        )
+        const weatherIcon = await Jimp.read(iconMap[hourlyData.weather[0].icon])
         image.composite(
           weatherIcon.resize(120, 120),
           sideGutter + i * 128 + 4,

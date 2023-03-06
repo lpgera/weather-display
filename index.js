@@ -68,7 +68,7 @@ app.get('/', async (req, res, next) => {
 
       const hourlyTop = currentWindTop + 64 + gutter * 2
       for (let i = 0; i < 4; i++) {
-        const hourlyData = weatherData.hourly[i]
+        const hourlyData = weatherData.hourly[i + 1] // skip current hour
 
         const date = new Date(hourlyData.dt * 1000)
         image.print(

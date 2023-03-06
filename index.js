@@ -146,6 +146,16 @@ app.get('/', async (req, res, next) => {
         )
       }
     } else {
+      image.print(
+        font64,
+        0,
+        430,
+        {
+          text: `Network error`,
+          alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+        },
+        540
+      )
     }
 
     const imageBuffer = await image.getBufferAsync(Jimp.MIME_PNG)

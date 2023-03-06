@@ -1,22 +1,87 @@
 import fs from 'fs'
+import Jimp from 'jimp'
+
+const sun = fs.readFileSync('./icons/sun.png')
+const cloudyDay = fs.readFileSync('./icons/cloudy-day.png')
+const cloudyNight = fs.readFileSync('./icons/cloudy-night.png')
+const cloud = fs.readFileSync('./icons/cloud.png')
+const clouds = fs.readFileSync('./icons/clouds.png')
+const rain = fs.readFileSync('./icons/rain.png')
+const thunder = fs.readFileSync('./icons/thunder.png')
+const snow = fs.readFileSync('./icons/snow.png')
+const mist = fs.readFileSync('./icons/mist.png')
 
 export const iconMap = {
-  '01d': fs.readFileSync('./icons/sun.png'),
-  '01n': fs.readFileSync('./icons/sun.png'),
-  '02d': fs.readFileSync('./icons/cloudy-day.png'),
-  '02n': fs.readFileSync('./icons/cloudy-night.png'),
-  '03d': fs.readFileSync('./icons/cloud.png'),
-  '03n': fs.readFileSync('./icons/cloud.png'),
-  '04d': fs.readFileSync('./icons/clouds.png'),
-  '04n': fs.readFileSync('./icons/clouds.png'),
-  '09d': fs.readFileSync('./icons/rain.png'),
-  '09n': fs.readFileSync('./icons/rain.png'),
-  '10d': fs.readFileSync('./icons/rain.png'),
-  '10n': fs.readFileSync('./icons/rain.png'),
-  '11d': fs.readFileSync('./icons/thunder.png'),
-  '11n': fs.readFileSync('./icons/thunder.png'),
-  '13d': fs.readFileSync('./icons/snow.png'),
-  '13n': fs.readFileSync('./icons/snow.png'),
-  '50d': fs.readFileSync('./icons/mist.png'),
-  '50n': fs.readFileSync('./icons/mist.png'),
+  '01d': {
+    big: (await Jimp.read(sun)).resize(300, 300),
+    small: (await Jimp.read(sun)).resize(120, 120),
+  },
+  '01n': {
+    big: (await Jimp.read(sun)).resize(300, 300),
+    small: (await Jimp.read(sun)).resize(120, 120),
+  },
+  '02d': {
+    big: (await Jimp.read(cloudyDay)).resize(300, 300),
+    small: (await Jimp.read(cloudyDay)).resize(120, 120),
+  },
+  '02n': {
+    big: (await Jimp.read(cloudyNight)).resize(300, 300),
+    small: (await Jimp.read(cloudyNight)).resize(120, 120),
+  },
+  '03d': {
+    big: (await Jimp.read(cloud)).resize(300, 300),
+    small: (await Jimp.read(cloud)).resize(120, 120),
+  },
+  '03n': {
+    big: (await Jimp.read(cloud)).resize(300, 300),
+    small: (await Jimp.read(cloud)).resize(120, 120),
+  },
+  '04d': {
+    big: (await Jimp.read(clouds)).resize(300, 300),
+    small: (await Jimp.read(clouds)).resize(120, 120),
+  },
+  '04n': {
+    big: (await Jimp.read(clouds)).resize(300, 300),
+    small: (await Jimp.read(clouds)).resize(120, 120),
+  },
+  '09d': {
+    big: (await Jimp.read(rain)).resize(300, 300),
+    small: (await Jimp.read(rain)).resize(120, 120),
+  },
+  '09n': {
+    big: (await Jimp.read(rain)).resize(300, 300),
+    small: (await Jimp.read(rain)).resize(120, 120),
+  },
+  '10d': {
+    big: (await Jimp.read(rain)).resize(300, 300),
+    small: (await Jimp.read(rain)).resize(120, 120),
+  },
+  '10n': {
+    big: (await Jimp.read(rain)).resize(300, 300),
+    small: (await Jimp.read(rain)).resize(120, 120),
+  },
+  '11d': {
+    big: (await Jimp.read(thunder)).resize(300, 300),
+    small: (await Jimp.read(thunder)).resize(120, 120),
+  },
+  '11n': {
+    big: (await Jimp.read(thunder)).resize(300, 300),
+    small: (await Jimp.read(thunder)).resize(120, 120),
+  },
+  '13d': {
+    big: (await Jimp.read(snow)).resize(300, 300),
+    small: (await Jimp.read(snow)).resize(120, 120),
+  },
+  '13n': {
+    big: (await Jimp.read(snow)).resize(300, 300),
+    small: (await Jimp.read(snow)).resize(120, 120),
+  },
+  '50d': {
+    big: (await Jimp.read(mist)).resize(300, 300),
+    small: (await Jimp.read(mist)).resize(120, 120),
+  },
+  '50n': {
+    big: (await Jimp.read(mist)).resize(300, 300),
+    small: (await Jimp.read(mist)).resize(120, 120),
+  },
 }

@@ -23,14 +23,8 @@ app.get('/', async (req, res, next) => {
       const gutter = 15
 
       const currentWeatherIconSize = 300
-      const currentWeatherIcon = await Jimp.read(
-        iconMap[weatherData.current.weather[0].icon]
-      )
       image.composite(
-        currentWeatherIcon.resize(
-          currentWeatherIconSize,
-          currentWeatherIconSize
-        ),
+        iconMap[weatherData.current.weather[0].icon].big,
         120,
         topGutter
       )
@@ -92,9 +86,8 @@ app.get('/', async (req, res, next) => {
         )
 
         const hourlyWeatherIconTop = hourlyTop + 32 + gutter
-        const weatherIcon = await Jimp.read(iconMap[hourlyData.weather[0].icon])
         image.composite(
-          weatherIcon.resize(120, 120),
+          iconMap[hourlyData.weather[0].icon].small,
           sideGutter + i * 128 + 4,
           hourlyWeatherIconTop
         )

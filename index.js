@@ -130,9 +130,9 @@ app.get('/', async (req, res, next) => {
             text: `${
               Math.round(
                 ((hourlyData.snow?.['1h'] ?? 0) +
-                  (hourlyData.rain?.['1h'] ?? 0)) /
+                  (hourlyData.rain?.['1h'] ?? 0)) *
                   10
-              ) * 10
+              ) / 10
             } mm`,
             alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
           },

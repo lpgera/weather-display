@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import express from 'express'
 import { getData } from './src/weather.js'
-import { iconMap } from './src/icons.js'
+import { currentWeatherIconSize, iconMap } from './src/icons.js'
 import Jimp from 'jimp'
 
 const app = express()
@@ -22,7 +22,6 @@ app.get('/', async (req, res, next) => {
       const sideGutter = 14
       const gutter = 15
 
-      const currentWeatherIconSize = 300
       image.composite(
         iconMap[weatherData.current.weather[0].icon].big,
         120,
@@ -48,7 +47,7 @@ app.get('/', async (req, res, next) => {
         sideGutter,
         currentTemperatureTop,
         {
-          text: `${weatherData.current.temp.toFixed(1)}°C`,
+          text: `${Math.round(weatherData.current.temp * 10) / 10}°C`,
           alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         },
         512
@@ -60,7 +59,9 @@ app.get('/', async (req, res, next) => {
         sideGutter,
         currentWindTop,
         {
-          text: `${(weatherData.current.wind_speed * 3.6).toFixed(1)} km/h`,
+          text: `${
+            Math.round(weatherData.current.wind_speed * 3.6 * 10) / 10
+          } km/h`,
           alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         },
         512
@@ -97,7 +98,7 @@ app.get('/', async (req, res, next) => {
           sideGutter + i * 128,
           hourlyWeatherIconTop + gutter + 128 + gutter / 2,
           {
-            text: `${hourlyData.temp.toFixed(1)}°C`,
+            text: `${Math.round(hourlyData.temp * 10) / 10}°C`,
             alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
           },
           128
@@ -127,7 +128,11 @@ app.get('/', async (req, res, next) => {
             gutter / 2,
           {
             text: `${
-              (hourlyData.snow?.['1h'] ?? 0) + (hourlyData.rain?.['1h'] ?? 0)
+              Math.round(
+                ((hourlyData.snow?.['1h'] ?? 0) +
+                  (hourlyData.rain?.['1h'] ?? 0)) /
+                  10
+              ) * 10
             } mm`,
             alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
           },
@@ -146,6 +151,9 @@ app.get('/', async (req, res, next) => {
         540
       )
     }
+
+    image.deflateStrategy(0)
+    image.filterType(Jimp.PNG_FILTER_UP)
 
     const imageBuffer = await image.getBufferAsync(Jimp.MIME_PNG)
 

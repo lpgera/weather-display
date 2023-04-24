@@ -165,3 +165,8 @@ app.get('/', async (req, res, next) => {
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`)
 })
+
+process.on('SIGINT', () => {
+  console.log('Server shutting down...')
+  process.exit()
+})

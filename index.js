@@ -151,7 +151,9 @@ app.get('/', async (req, res, next) => {
     }
 
     image.deflateStrategy(0)
-    image.filterType(Jimp.PNG_FILTER_UP)
+    image.deflateLevel(9)
+    image.colorType(0)
+    image.filterType(Jimp.PNG_FILTER_NONE)
 
     const imageBuffer = await image.getBufferAsync(Jimp.MIME_PNG)
 

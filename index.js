@@ -11,6 +11,8 @@ const font128 = await Jimp.loadFont(Jimp.FONT_SANS_128_BLACK)
 const font64 = await Jimp.loadFont(Jimp.FONT_SANS_64_BLACK)
 const font32 = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK)
 
+const roundToOneDecimal = (number) => Math.round(number * 10) / 10
+
 app.get('/', async (req, res, next) => {
   try {
     const image = new Jimp(540, 960, 0xffffffff)
@@ -47,7 +49,7 @@ app.get('/', async (req, res, next) => {
         sideGutter,
         currentTemperatureTop,
         {
-          text: `${Math.round(weatherData.current.temp * 10) / 10}°C`,
+          text: `${roundToOneDecimal(weatherData.current.temp)}°C`,
           alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         },
         512
@@ -59,9 +61,9 @@ app.get('/', async (req, res, next) => {
         sideGutter,
         currentWindTop,
         {
-          text: `${
-            Math.round(weatherData.current.wind_speed * 3.6 * 10) / 10
-          } km/h`,
+          text: `${roundToOneDecimal(
+            weatherData.current.wind_speed * 3.6
+          )} km/h`,
           alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         },
         512
@@ -98,7 +100,7 @@ app.get('/', async (req, res, next) => {
           sideGutter + i * 128,
           hourlyWeatherIconTop + gutter + 128 + gutter / 2,
           {
-            text: `${Math.round(hourlyData.temp * 10) / 10}°C`,
+            text: `${roundToOneDecimal(hourlyData.temp)}°C`,
             alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
           },
           128
@@ -109,7 +111,7 @@ app.get('/', async (req, res, next) => {
           sideGutter + i * 128,
           hourlyWeatherIconTop + gutter + 128 + gutter / 2 + 32 + gutter / 2,
           {
-            text: `${hourlyData.pop * 100}%`,
+            text: `${roundToOneDecimal(hourlyData.pop * 100)}%`,
             alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
           },
           128
@@ -127,13 +129,9 @@ app.get('/', async (req, res, next) => {
             32 +
             gutter / 2,
           {
-            text: `${
-              Math.round(
-                ((hourlyData.snow?.['1h'] ?? 0) +
-                  (hourlyData.rain?.['1h'] ?? 0)) *
-                  10
-              ) / 10
-            } mm`,
+            text: `${roundToOneDecimal(
+              (hourlyData.snow?.['1h'] ?? 0) + (hourlyData.rain?.['1h'] ?? 0)
+            )} mm`,
             alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
           },
           128

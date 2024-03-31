@@ -1,4 +1,3 @@
-version: '3'
 services:
   weather-display:
     container_name: weather-display

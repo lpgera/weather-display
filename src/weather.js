@@ -7,15 +7,15 @@ const searchParams = {
 
 export async function getData() {
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/onecall?${new URLSearchParams(
-      searchParams
-    )}`
+    `https://api.openweathermap.org/data/3.0/onecall?${new URLSearchParams(
+      searchParams,
+    )}`,
   )
 
   if (!response.ok) {
     console.error(
       'Could not get weather information from OpenWeatherMap API:',
-      await response.text()
+      await response.text(),
     )
     return null
   }

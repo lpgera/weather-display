@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import express from 'express'
 import { getData } from './src/weather.js'
 import { currentWeatherIconSize, iconMap } from './src/icons.js'
@@ -27,7 +26,7 @@ app.get('/', async (req, res, next) => {
       image.composite(
         iconMap[weatherData.current.weather[0].icon].big,
         120,
-        topGutter
+        topGutter,
       )
 
       const currentWeatherDescriptionTop =
@@ -40,7 +39,7 @@ app.get('/', async (req, res, next) => {
           text: weatherData.current.weather[0].description,
           alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         },
-        512
+        512,
       )
 
       const currentTemperatureTop = currentWeatherDescriptionTop + 32 + gutter
@@ -52,7 +51,7 @@ app.get('/', async (req, res, next) => {
           text: `${roundToOneDecimal(weatherData.current.temp)}°C`,
           alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         },
-        512
+        512,
       )
 
       const currentWindTop = currentTemperatureTop + 128 + gutter
@@ -62,11 +61,11 @@ app.get('/', async (req, res, next) => {
         currentWindTop,
         {
           text: `${roundToOneDecimal(
-            weatherData.current.wind_speed * 3.6
+            weatherData.current.wind_speed * 3.6,
           )} km/h`,
           alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         },
-        512
+        512,
       )
 
       const hourlyTop = currentWindTop + 64 + gutter * 2
@@ -85,14 +84,14 @@ app.get('/', async (req, res, next) => {
               .padStart(2, '0')}`,
             alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
           },
-          128
+          128,
         )
 
         const hourlyWeatherIconTop = hourlyTop + 32 + gutter
         image.composite(
           iconMap[hourlyData.weather[0].icon].small,
           sideGutter + i * 128 + 4,
-          hourlyWeatherIconTop
+          hourlyWeatherIconTop,
         )
 
         image.print(
@@ -103,7 +102,7 @@ app.get('/', async (req, res, next) => {
             text: `${roundToOneDecimal(hourlyData.temp)}°C`,
             alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
           },
-          128
+          128,
         )
 
         image.print(
@@ -114,7 +113,7 @@ app.get('/', async (req, res, next) => {
             text: `${roundToOneDecimal(hourlyData.pop * 100)}%`,
             alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
           },
-          128
+          128,
         )
 
         image.print(
@@ -130,11 +129,11 @@ app.get('/', async (req, res, next) => {
             gutter / 2,
           {
             text: `${roundToOneDecimal(
-              (hourlyData.snow?.['1h'] ?? 0) + (hourlyData.rain?.['1h'] ?? 0)
+              (hourlyData.snow?.['1h'] ?? 0) + (hourlyData.rain?.['1h'] ?? 0),
             )} mm`,
             alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
           },
-          128
+          128,
         )
       }
     } else {
@@ -146,7 +145,7 @@ app.get('/', async (req, res, next) => {
           text: `Network error`,
           alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         },
-        540
+        540,
       )
     }
 

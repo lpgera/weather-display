@@ -13,12 +13,11 @@
   },
   "scripts": {
     "start": "node index.js",
-    "dev": "node --watch index.js"
+    "dev": "node --watch --env-file=.env index.js"
   },
   "author": "lpgera",
   "license": "MIT",
   "dependencies": {
-    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jimp": "^0.22.12"
   },

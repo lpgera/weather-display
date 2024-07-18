@@ -163,11 +163,13 @@ app.get('/', async (req, res, next) => {
   }
 })
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server listening on port ${port}`)
 })
 
-process.on('SIGINT', () => {
-  console.log('Server shutting down...')
-  process.exit()
-})
+const exitHandler = async (signal) => {
+  console.log(`Received ${signal}, exiting...`)
+  server.close()
+}
+process.on('SIGINT', exitHandler)
+process.on('SIGTERM', exitHandler)

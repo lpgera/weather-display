@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm ci --omit=dev && npm cache clear --force
+RUN npm ci --omit=dev --no-audit --no-fund && npm cache clear --force
 
 COPY . .
 

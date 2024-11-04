@@ -5,11 +5,11 @@
   "main": "index.js",
   "type": "module",
   "engines": {
-    "node": "^22.0.0",
+    "node": "^23.1.0",
     "npm": ">10.0.0"
   },
   "volta": {
-    "node": "22.0.0"
+    "node": "23.1.0"
   },
   "scripts": {
     "start": "node index.js",
@@ -18,12 +18,12 @@
   "author": "lpgera",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.19.2",
-    "jimp": "^0.22.12"
+    "express": "^4.21.1",
+    "jimp": "^1.6.0"
   },
   "devDependencies": {
-    "husky": "^9.1.1",
-    "lint-staged": "^15.2.7",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
     "prettier": "^3.3.3"
   },
   "lint-staged": {

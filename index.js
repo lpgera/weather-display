@@ -1,20 +1,21 @@
 import express from 'express'
 import { getData } from './src/weather.js'
 import { currentWeatherIconSize, iconMap } from './src/icons.js'
-import Jimp from 'jimp'
+import { HorizontalAlign, Jimp, JimpMime, loadFont, PNGFilterType } from 'jimp'
+import { SANS_128_BLACK, SANS_64_BLACK, SANS_32_BLACK } from 'jimp/fonts'
 
 const app = express()
 const port = process.env.PORT ?? 3000
 
-const font128 = await Jimp.loadFont(Jimp.FONT_SANS_128_BLACK)
-const font64 = await Jimp.loadFont(Jimp.FONT_SANS_64_BLACK)
-const font32 = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK)
+const font128 = await loadFont(SANS_128_BLACK)
+const font64 = await loadFont(SANS_64_BLACK)
+const font32 = await loadFont(SANS_32_BLACK)
 
 const roundToOneDecimal = (number) => Math.round(number * 10) / 10
 
 app.get('/', async (req, res, next) => {
   try {
-    const image = new Jimp(540, 960, 0xffffffff)
+    const image = new Jimp({ width: 540, height: 960, color: 0xffffffff })
 
     const weatherData = await getData()
 
@@ -31,61 +32,61 @@ app.get('/', async (req, res, next) => {
 
       const currentWeatherDescriptionTop =
         topGutter + currentWeatherIconSize + gutter
-      image.print(
-        font32,
-        sideGutter,
-        currentWeatherDescriptionTop,
-        {
+      image.print({
+        font: font32,
+        x: sideGutter,
+        y: currentWeatherDescriptionTop,
+        text: {
           text: weatherData.current.weather[0].description,
-          alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+          alignmentX: HorizontalAlign.CENTER,
         },
-        512,
-      )
+        maxWidth: 512,
+      })
 
       const currentTemperatureTop = currentWeatherDescriptionTop + 32 + gutter
-      image.print(
-        font128,
-        sideGutter,
-        currentTemperatureTop,
-        {
+      image.print({
+        font: font128,
+        x: sideGutter,
+        y: currentTemperatureTop,
+        text: {
           text: `${roundToOneDecimal(weatherData.current.temp)}°C`,
-          alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+          alignmentX: HorizontalAlign.CENTER,
         },
-        512,
-      )
+        maxWidth: 512,
+      })
 
       const currentWindTop = currentTemperatureTop + 128 + gutter
-      image.print(
-        font64,
-        sideGutter,
-        currentWindTop,
-        {
+      image.print({
+        font: font64,
+        x: sideGutter,
+        y: currentWindTop,
+        text: {
           text: `${roundToOneDecimal(
             weatherData.current.wind_speed * 3.6,
           )} km/h`,
-          alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+          alignmentX: HorizontalAlign.CENTER,
         },
-        512,
-      )
+        maxWidth: 512,
+      })
 
       const hourlyTop = currentWindTop + 64 + gutter * 2
       for (let i = 0; i < 4; i++) {
         const hourlyData = weatherData.hourly[i + 1] // skip current hour
 
         const date = new Date(hourlyData.dt * 1000)
-        image.print(
-          font32,
-          sideGutter + i * 128,
-          hourlyTop,
-          {
+        image.print({
+          font: font32,
+          x: sideGutter + i * 128,
+          y: hourlyTop,
+          text: {
             text: `${date.getHours().toString().padStart(2, '0')}:${date
               .getMinutes()
               .toString()
               .padStart(2, '0')}`,
-            alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+            alignmentX: HorizontalAlign.CENTER,
           },
-          128,
-        )
+          maxWidth: 128,
+        })
 
         const hourlyWeatherIconTop = hourlyTop + 32 + gutter
         image.composite(
@@ -94,32 +95,33 @@ app.get('/', async (req, res, next) => {
           hourlyWeatherIconTop,
         )
 
-        image.print(
-          font32,
-          sideGutter + i * 128,
-          hourlyWeatherIconTop + gutter + 128 + gutter / 2,
-          {
+        image.print({
+          font: font32,
+          x: sideGutter + i * 128,
+          y: hourlyWeatherIconTop + gutter + 128 + gutter / 2,
+          text: {
             text: `${roundToOneDecimal(hourlyData.temp)}°C`,
-            alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+            alignmentX: HorizontalAlign.CENTER,
           },
-          128,
-        )
+          maxWidth: 128,
+        })
 
-        image.print(
-          font32,
-          sideGutter + i * 128,
-          hourlyWeatherIconTop + gutter + 128 + gutter / 2 + 32 + gutter / 2,
-          {
+        image.print({
+          font: font32,
+          x: sideGutter + i * 128,
+          y: hourlyWeatherIconTop + gutter + 128 + gutter / 2 + 32 + gutter / 2,
+          text: {
             text: `${roundToOneDecimal(hourlyData.pop * 100)}%`,
-            alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+            alignmentX: HorizontalAlign.CENTER,
           },
-          128,
-        )
+          maxWidth: 128,
+        })
 
-        image.print(
-          font32,
-          sideGutter + i * 128,
-          hourlyWeatherIconTop +
+        image.print({
+          font: font32,
+          x: sideGutter + i * 128,
+          y:
+            hourlyWeatherIconTop +
             gutter +
             128 +
             gutter / 2 +
@@ -127,36 +129,36 @@ app.get('/', async (req, res, next) => {
             gutter / 2 +
             32 +
             gutter / 2,
-          {
+          text: {
             text: `${roundToOneDecimal(
               (hourlyData.snow?.['1h'] ?? 0) + (hourlyData.rain?.['1h'] ?? 0),
             )} mm`,
-            alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+            alignmentX: HorizontalAlign.CENTER,
           },
-          128,
-        )
+          maxWidth: 128,
+        })
       }
     } else {
-      image.print(
-        font64,
-        0,
-        430,
-        {
+      image.print({
+        font: font64,
+        x: 0,
+        y: 430,
+        text: {
           text: `Network error`,
-          alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+          alignmentX: HorizontalAlign.CENTER,
         },
-        540,
-      )
+        maxWidth: 540,
+      })
     }
 
-    image.deflateStrategy(0)
-    image.deflateLevel(9)
-    image.colorType(0)
-    image.filterType(Jimp.PNG_FILTER_NONE)
+    const imageBuffer = await image.getBuffer(JimpMime.png, {
+      deflateLevel: 9,
+      strategy: 0,
+      colorType: 0,
+      filterType: PNGFilterType.NONE,
+    })
 
-    const imageBuffer = await image.getBufferAsync(Jimp.MIME_PNG)
-
-    res.set('Content-Type', Jimp.MIME_PNG)
+    res.set('Content-Type', JimpMime.png)
     res.send(imageBuffer)
   } catch (error) {
     next(error)

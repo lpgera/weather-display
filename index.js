@@ -2,7 +2,12 @@ import express from 'express'
 import { getData } from './src/weather.js'
 import { currentWeatherIconSize, iconMap } from './src/icons.js'
 import { HorizontalAlign, Jimp, JimpMime, loadFont, PNGFilterType } from 'jimp'
-import { SANS_128_BLACK, SANS_64_BLACK, SANS_32_BLACK } from 'jimp/fonts'
+import {
+  SANS_128_BLACK,
+  SANS_64_BLACK,
+  SANS_32_BLACK,
+  SANS_16_BLACK,
+} from 'jimp/fonts'
 
 const app = express()
 const port = process.env.PORT ?? 3000
@@ -10,6 +15,7 @@ const port = process.env.PORT ?? 3000
 const font128 = await loadFont(SANS_128_BLACK)
 const font64 = await loadFont(SANS_64_BLACK)
 const font32 = await loadFont(SANS_32_BLACK)
+const font16 = await loadFont(SANS_16_BLACK)
 
 const roundToOneDecimal = (number) => Math.round(number * 10) / 10
 
@@ -19,10 +25,25 @@ app.get('/', async (req, res, next) => {
 
     const weatherData = await getData()
 
+    const date = new Date(weatherData.current.dt * 1000)
+
     if (weatherData) {
       const topGutter = 30
       const sideGutter = 14
       const gutter = 15
+
+      image.print({
+        font: font16,
+        x: 0,
+        y: 0,
+        text: {
+          text: new Intl.DateTimeFormat('en-GB', {
+            timeStyle: 'medium',
+          }).format(date),
+          alignmentX: HorizontalAlign.CENTER,
+        },
+        maxWidth: 540,
+      })
 
       image.composite(
         iconMap[weatherData.current.weather[0].icon].big,

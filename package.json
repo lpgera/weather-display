@@ -5,26 +5,26 @@
   "main": "index.js",
   "type": "module",
   "engines": {
-    "node": "^23.1.0",
-    "npm": ">10.0.0"
+    "node": "^24.0.0",
+    "npm": ">11.0.0"
   },
   "volta": {
-    "node": "23.1.0"
+    "node": "24.6.0"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node --env-file-if-exists=.env index.js",
     "dev": "node --watch --env-file=.env index.js"
   },
   "author": "lpgera",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.21.1",
+    "express": "^5.1.0",
     "jimp": "^1.6.0"
   },
   "devDependencies": {
-    "husky": "^9.1.6",
-    "lint-staged": "^15.2.10",
-    "prettier": "^3.3.3"
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.5",
+    "prettier": "^3.6.2"
   },
   "lint-staged": {
     "*.{js,jsx,md,json,yml}": "prettier --write"

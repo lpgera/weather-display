@@ -35,7 +35,7 @@ app.get('/', async (req, res, next) => {
       image.print({
         font: font16,
         x: 0,
-        y: 0,
+        y: 6,
         text: {
           text: new Intl.DateTimeFormat('en-GB', {
             timeStyle: 'medium',
